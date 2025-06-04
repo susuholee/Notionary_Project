@@ -79,7 +79,7 @@
 <div style="display: flex; justify-content: space-evenly; align-items: flex-start; flex-wrap: nowrap;">
   <div style="text-align: center;">
     <img src="https://github.com/susuholee.png" width="120"><br>
-    <a href="https://github.com/susuholee">팀장 : 이수호</a>
+    <a href="https://github.com/susuholee">팀원 : 이수호</a>
   </div>
 
   <div style="text-align: center;">
@@ -94,11 +94,10 @@
 </div>
 
 ---
-## 📡 프론트 API 문서
+## 📡 API 문서
 
 ### 🔹 메인 페이지
 - **`/`**
-
 
 
 ### 🔹 추가 페이지
@@ -145,25 +144,32 @@
 
 ┣ 📂프론트
 
- ┣ 📂Actions
- 
- ┣ 📂API
+┣ 📂src
 
- ┣ 📂Components
+    ┣ 📂 API
 
- ┣ 📂css
+    ┣ 📂 Components
 
- ┣ 📂Hooks
+    ┣ 📂 css
 
+    ┣ 📂 Hooks
 
+    ┣ 📂 images
 
- ┣ 📂routers
+    ┣ 📂 Reducer
+
+    ┣ 📂 Store
   
-┣ 📂script
+ ┣ 📜 App.js
 
- ┣ 📜server.js
+ ┣ 📜 index.js
 
- ┣ 📜README.md
+ ┣ 📜 package-lock.json
+
+ ┣ 📜 package.json
+
+
+
 
 
 

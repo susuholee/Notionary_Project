@@ -37,13 +37,13 @@ router.post("/newFolder", auth, async (req, res) => {
 
 router.post("/newPage", auth, async (req, res) => {
   const { data } = req.body;
-  console.log(data,'dddd')
+  // console.log(data,'dddd')
   try {
     const {workSpace, folderName, fileName} = data.data;
     const { uid } = req.user;
-    console.log(workSpace, folderName, fileName, uid, data,'ppp')
+    // console.log(workSpace, folderName, fileName, uid, data,'ppp')
     const {workspaceId} = await findworkspacefolderid(workSpace, folderName, uid)
-    console.log(workspaceId, 'ooooo')
+    // console.log(workspaceId, 'ooooo')
     const { Data } = await createPage(data, uid, workspaceId);
     res.json({ state: 200, data });
   } catch (error) {
@@ -87,7 +87,7 @@ router.post(
         filename,
         req.user.uid
       );
-      console.log(workspaceId, ' workspacedi')
+      // console.log(workspaceId, ' workspacedi')
       const savepageData = await savetextData(workspaceId, filename, Data);
       const PageData = await getpageData(workspaceId, filename);
       res.json({ data: PageData });
@@ -127,9 +127,9 @@ router.post(
 );
 
 router.get("/workspacedataOne", auth, async (req, res) => {
-  console.log(req.user.uid, "uid111");
+  // console.log(req.user.uid, "uid111");
   const data = await findWorkspacedata("개인 워크스페이스", req.user.uid);
-  console.log(data, "worspacedataOne");
+  // console.log(data, "worspacedataOne");
   res.json({ data });
 });
 router.get("/workspacedataTwo", auth, async (req, res) => {
@@ -147,8 +147,8 @@ router.get("/workspaceContent", auth, async (req, res) => {
 router.post("/delworkspace", auth, async (req, res) => {
   try {
     const {workspacename, foldername} = req.body;
-    console.log(workspacename, foldername,'dfdfdf')
-    console.log(workspacename, foldername, req.user.uid, 'sssss')
+    // console.log(workspacename, foldername,'dfdfdf')
+    // console.log(workspacename, foldername, req.user.uid, 'sssss')
     const data = DestroyWorkspace(req.user.uid, workspacename, foldername)
     res.json({state : 200, message : data})
     
@@ -160,7 +160,7 @@ router.post("/delworkspace", auth, async (req, res) => {
 router.post("/delworkspacepage", auth, async (req, res) => {
   try {
     const {workspacename, foldername, filename} = req.body;
-    console.log(workspacename, foldername, req.user.uid, 'sssss')
+    // console.log(workspacename, foldername, req.user.uid, 'sssss')
     const data = DestroyWorkspacepage(req.user.uid, workspacename, foldername, filename)
     res.json({state : 200, message : data})
     
@@ -171,10 +171,10 @@ router.post("/delworkspacepage", auth, async (req, res) => {
 })
 
 router.post("/getBlockIdcontent", auth, async (req, res) => {
-  console.log('1111111111111111')
+  // console.log('1111111111111111')
   const {result_id} = req.body;
   const data = await getIdpagedata(result_id)
-  // console.log(result_id, '222222222222', data)
+  console.log(result_id, '222222222222', data)
   res.json({data})
 })
 

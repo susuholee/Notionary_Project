@@ -134,10 +134,10 @@ const getSubPost = async (categoryName, subCategory) => {
   }
 };
 
-// (async () => {
-// const result = await getSubPost();
-//  console.dir(result, { depth: null });
-// })();
+(async () => {
+const result = await getSubPost();
+ console.dir(result, { depth: null });
+})();
 
 // 기타 게시글 조회 함수
 const getEtcPost = async () => {

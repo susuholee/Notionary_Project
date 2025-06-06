@@ -21,7 +21,7 @@ const getAllCategory = async () => {
 // })();
 
 
-// 대표 카테고리 안에 있는 세부 카테고리 조회 함수
+// // 대표 카테고리 안에 있는 세부 카테고리 조회 함수
 // const getSubCategory = async () => {
 //     try {
 //         const data = await Category.findAll({

@@ -20,7 +20,7 @@ const ButtonWrap = styled.button`
   min-width: ${({ size }) => (size === "small" ? "80px" : "100px")};
   height: ${({ size }) => (size === "small" ? "36px" : "44px")};
   padding: ${({ padding, size }) =>
-    padding || (size === "small" ? "8px 16px" : "10px 24px")};
+  padding || (size === "small" ? "8px 16px" : "10px 24px")};
   margin-top: ${({ noMargin }) => (noMargin ? "0" : "20px")};
   border: none;
   border-radius: 8px;

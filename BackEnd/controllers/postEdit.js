@@ -202,7 +202,7 @@ exports.updatePost = async (req, res) => {
 
     if (req.files && req.files.length > 0) {
       req.files.forEach((file) => {
-        const fileUrl = `http://localhost:4000/uploads/posts/${file.filename}`;
+        const fileUrl = `${process.env.FRONTEND_URL}/uploads/posts/${file.filename}`;
         if (file.mimetype.startsWith("image/")) {
           newImages.push(fileUrl);
         } else if (file.mimetype.startsWith("video/")) {
@@ -278,7 +278,7 @@ exports.updatePost = async (req, res) => {
     // 삭제할 미디어 파일들 물리적 삭제
     const deleteFiles = (filePaths, uploadFolder) => {
       filePaths.forEach((filePath) => {
-        if (filePath.startsWith("http://localhost:4000/")) {
+        if (filePath.startsWith(`${process.env.FRONTEND_URL}/`)) {
           const fileName = path.basename(filePath);
           const fullPath = path.join(
             __dirname,

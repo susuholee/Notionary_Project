@@ -31,7 +31,7 @@ router.post("/", upload.array("media", 5), async (req, res) => {
       const relativePath = file.path
         .replace(/\\/g, "/")
         .replace(/^public\//, "");
-      return `http://localhost:4000/${relativePath}`;
+      return `${process.env.FRONTEND_URL}/${relativePath}`;
     });
 
   const videoPaths = req.files
@@ -40,7 +40,7 @@ router.post("/", upload.array("media", 5), async (req, res) => {
       const relativePath = file.path
         .replace(/\\/g, "/")
         .replace(/^public\//, "");
-      return `http://localhost:4000/${relativePath}`;
+      return `${process.env.FRONTEND_URL}/${relativePath}`;
     });
 
   const data = await CreatePost({
@@ -74,7 +74,7 @@ router.put("/edit/:post_id", upload.array("media", 5), async (req, res) => {
       const relativePath = file.path
         .replace(/\\/g, "/")
         .replace(/^public\//, "");
-      return `http://localhost:4000/${relativePath}`;
+      return `${process.env.FRONTEND_URL}/${relativePath}`;
     });
 
   const videoPaths = req.files
@@ -83,7 +83,7 @@ router.put("/edit/:post_id", upload.array("media", 5), async (req, res) => {
       const relativePath = file.path
         .replace(/\\/g, "/")
         .replace(/^public\//, "");
-      return `http://localhost:4000/${relativePath}`;
+      return `${process.env.FRONTEND_URL}/${relativePath}`;
     });
   const data = await UpdatePost({
     post_id,

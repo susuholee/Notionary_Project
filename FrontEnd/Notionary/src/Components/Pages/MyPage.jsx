@@ -21,7 +21,7 @@ import {
 import axios from "axios";
 import Cookies from "js-cookie";
 import logo from "../../images/notionary-logo.png";
-
+const API_URL = process.env.REACT_APP_API_URL;
 // 컬러 팔레트
 const colors = {
   primary: "#667eea",
@@ -676,7 +676,7 @@ const MyPage = () => {
         return;
       }
 
-      const response = await axios.get("http://localhost:4000/user/info", {
+      const response = await axios.get(`${API_URL}/user/info`, {
         headers: { Authorization: `Bearer ${accessToken}` },
         withCredentials: true,
       });
@@ -704,7 +704,7 @@ const MyPage = () => {
       }
 
       const response = await axios.get(
-        "http://localhost:4000/mypage/getMyPost",
+        `${API_URL}/mypage/getMyPost`,
         {
           headers: { Authorization: `Bearer ${accessToken}` },
           withCredentials: true,
@@ -731,7 +731,7 @@ const MyPage = () => {
 
       console.log("토큰:", accessToken);
       const response = await axios.get(
-        "http://localhost:4000/mypage/getLikedPosts",
+        `${API_URL}/mypage/getLikedPosts`,
         {
           headers: { Authorization: `Bearer ${accessToken}` },
           withCredentials: true,
@@ -754,7 +754,7 @@ const MyPage = () => {
       if (!accessToken) return;
 
       const response = await axios.get(
-        "http://localhost:4000/mypage/getCommentedPosts",
+        `${API_URL}/mypage/getCommentedPosts`,
         {
           headers: { Authorization: `Bearer ${accessToken}` },
           withCredentials: true,
@@ -774,7 +774,7 @@ const MyPage = () => {
       const accessToken =
         Cookies.get("login_access_token") || Cookies.get("authToken");
       const response = await axios.get(
-        "http://localhost:4000/mypage/getMyWorkspace",
+        `${API_URL}/mypage/getMyWorkspace`,
         {
           headers: { Authorization: `Bearer ${accessToken}` },
           withCredentials: true,
@@ -846,7 +846,7 @@ const MyPage = () => {
       }
 
       const response = await axios.post(
-        "http://localhost:4000/user/update",
+        `${API_URL}/user/update`,
         formData,
         {
           headers: {

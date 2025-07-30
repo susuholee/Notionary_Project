@@ -90,7 +90,7 @@ exports.updateUserInfo = async (req, res) => {
       }
 
       // 새 프로필 이미지 URL 설정
-      updateData.profImg = `http://localhost:4000/uploads/profile/${req.file.filename}`;
+      updateData.profImg = `${process.env.FRONTEND_URL}/uploads/profile/${req.file.filename}`;
       console.log("새 프로필 이미지 URL:", updateData.profImg);
     }
 

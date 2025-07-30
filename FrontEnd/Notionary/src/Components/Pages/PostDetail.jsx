@@ -19,7 +19,7 @@ import {
 import axios from "axios";
 import Cookies from "js-cookie";
 import logo from "../../images/notionary-logo.png";
-
+const API_URL = process.env.REACT_APP_API_URL;
 // 컬러 팔레트 (MyPage와 동일)
 const colors = {
   primary: "#667eea",
@@ -622,7 +622,7 @@ const PostDetail = () => {
         Cookies.get("authToken") || Cookies.get("login_access_token");
 
       const response = await axios.get(
-        `http://localhost:4000/detail/${post_id}`,
+        `${API_URL}/detail/${post_id}`,
         {
           headers: token ? { Authorization: `Bearer ${token}` } : {},
           withCredentials: true,
@@ -668,7 +668,7 @@ const PostDetail = () => {
       }
 
       const response = await axios.post(
-        `http://localhost:4000/detail/${post_id}/like`,
+        `${API_URL}/detail/${post_id}/like`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -702,7 +702,7 @@ const PostDetail = () => {
       }
 
       const response = await axios.post(
-        `http://localhost:4000/detail/${post_id}/comments`,
+        `${API_URL}/detail/${post_id}/comments`,
         { content: newComment.trim() },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -744,7 +744,7 @@ const PostDetail = () => {
         Cookies.get("authToken") || Cookies.get("login_access_token");
 
       await axios.put(
-        `http://localhost:4000/detail/comments/${commentId}`,
+        `${API_URL}/detail/comments/${commentId}`,
         { content: editingCommentContent.trim() },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -777,7 +777,7 @@ const PostDetail = () => {
       const token =
         Cookies.get("authToken") || Cookies.get("login_access_token");
 
-      await axios.delete(`http://localhost:4000/detail/comments/${commentId}`, {
+      await axios.delete(`${API_URL}/detail/comments/${commentId}`, {
         headers: { Authorization: `Bearer ${token}` },
         withCredentials: true,
       });
@@ -800,7 +800,7 @@ const PostDetail = () => {
       const token =
         Cookies.get("authToken") || Cookies.get("login_access_token");
 
-      await axios.delete(`http://localhost:4000/detail/${post_id}`, {
+      await axios.delete(`${API_URL}/detail/${post_id}`, {
         headers: { Authorization: `Bearer ${token}` },
         withCredentials: true,
       });

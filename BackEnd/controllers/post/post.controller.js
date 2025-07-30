@@ -420,7 +420,7 @@ const getMyPost = async (req, res) => {
       delete post.Category; // 불필요한 Category 필드 제거
       post.imgPaths = JSON.parse(post.imgPaths)[0]
         ? JSON.parse(post.imgPaths)[0] // JSON 문자열을 배열로 변환
-        : "http://localhost:4000/images/default/default_profile.png"; // imgPaths가 없으면 빈 배열로 설정
+        : `${process.env.FRONTEND_URL}/images/default/default_profile.png`; // imgPaths가 없으면 빈 배열로 설정
       post.createdAt = new Date(post.createdAt).toLocaleDateString("ko-KR", {
         year: "numeric",
         month: "short",

@@ -106,7 +106,7 @@ exports.getPostDetail = async (req, res) => {
         if (Array.isArray(parsedImages) && parsedImages.length > 0) {
           images = parsedImages.map((img) => {
             if (!img.startsWith("http")) {
-              return `http://localhost:4000/uploads/posts/${img}`;
+              return `${process.env.FRONTEND_URL}/uploads/posts/${img}`;
             }
             return img;
           });
@@ -121,7 +121,7 @@ exports.getPostDetail = async (req, res) => {
           .filter((img) => img)
           .map((img) => {
             if (!img.startsWith("http")) {
-              return `http://localhost:4000/uploads/posts/${img}`;
+              return `${process.env.FRONTEND_URL}/uploads/posts/${img}`;
             }
             return img;
           });
@@ -149,7 +149,7 @@ exports.getPostDetail = async (req, res) => {
         if (Array.isArray(parsedVideos) && parsedVideos.length > 0) {
           videos = parsedVideos.map((video) => {
             if (!video.startsWith("http")) {
-              return `http://localhost:4000/uploads/posts/${video}`;
+              return `${process.env.FRONTEND_URL}/uploads/posts/${video}`;
             }
             return video;
           });
@@ -164,7 +164,7 @@ exports.getPostDetail = async (req, res) => {
           .filter((video) => video)
           .map((video) => {
             if (!video.startsWith("http")) {
-              return `http://localhost:4000/uploads/posts/${video}`;
+              return `${process.env.FRONTEND_URL}/uploads/posts/${video}`;
             }
             return video;
           });
@@ -178,18 +178,18 @@ exports.getPostDetail = async (req, res) => {
 
     let authorProfileImg = post.User.profImg;
     if (authorProfileImg && !authorProfileImg.startsWith("http")) {
-      authorProfileImg = `http://localhost:4000/uploads/profile/${authorProfileImg}`;
+      authorProfileImg = `${process.env.FRONTEND_URL}/uploads/profile/${authorProfileImg}`;
     }
     if (post.User.profImg === "/images/default_profile.png") {
       authorProfileImg =
-        "http://localhost:4000/images/default/default_profile.png";
+        `${process.env.FRONTEND_URL}/images/default/default_profile.png`;
     }
 
     // 댓글 데이터 처리
     const processedComments = post.Comments.map((comment) => {
       let commentAuthorImg = comment.User.profImg;
       if (commentAuthorImg && !commentAuthorImg.startsWith("http")) {
-        commentAuthorImg = `http://localhost:4000/uploads/profile/${commentAuthorImg}`;
+        commentAuthorImg = `${process.env.FRONTEND_URL}/uploads/profile/${commentAuthorImg}`;
       }
 
       return {
@@ -366,7 +366,7 @@ exports.createComment = async (req, res) => {
     // 프로필 이미지 처리
     let authorProfileImg = commentWithAuthor.User.profImg;
     if (authorProfileImg && !authorProfileImg.startsWith("http")) {
-      authorProfileImg = `http://localhost:4000/uploads/profile/${authorProfileImg}`;
+      authorProfileImg = `${process.env.FRONTEND_URL}/uploads/profile/${authorProfileImg}`;
     }
 
     const responseData = {

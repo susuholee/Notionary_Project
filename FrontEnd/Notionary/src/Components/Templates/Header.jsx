@@ -97,7 +97,7 @@ const Header = () => {
   });
 
   const navigate = useNavigate();
-
+const API_URL = process.env.REACT_APP_API_URL;
   // 유저 정보 가져오기
   // 유저가 카카오로 로그인하면 카카오
   useEffect(() => {
@@ -115,7 +115,7 @@ const Header = () => {
         console.log("API 요청 시작");
 
         if (token) {
-          const response = await axios.get("http://localhost:4000/user/info", {
+          const response = await axios.get(`${API_URL}/user/info`, {
             headers: { Authorization: `Bearer ${token}` },
             withCredentials: true,
           });
@@ -142,7 +142,7 @@ const Header = () => {
         }
 
         if (loginAccessToken) {
-          const response = await axios.get("http://localhost:4000/user/info", {
+          const response = await axios.get(`${API_URL}/user/info`, {
             headers: { Authorization: `Bearer ${loginAccessToken}` },
             withCredentials: true,
           });

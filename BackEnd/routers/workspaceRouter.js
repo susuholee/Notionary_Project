@@ -107,7 +107,7 @@ router.post(
     const { filename } = req.file;
     const Data = JSON.parse(data);
     const datas = Data.map((el) => {
-      if (el.id == id) el.content = `http://localhost:4000/images/${filename}`;
+      if (el.id == id) el.content = `${process.env.FRONTEND_URL}/images/${filename}`;
       return el;
     });
     const { workspaceId } = await findworkspaceid(

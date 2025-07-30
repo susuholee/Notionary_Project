@@ -88,7 +88,7 @@ exports.getLikedPosts = async (req, res) => {
             firstImage = parsedImages[0];
           } else {
             firstImage =
-              "http://localhost:4000/images/default/default_profile.png"; // 기본 썸네일 이미지
+              `${process.env.FRONTEND_URL}/images/default/default_profile.png`; // 기본 썸네일 이미지
           }
         } catch (error) {
           // JSON 파싱 실패 시 콤마로 구분된 문자열로 처리
@@ -265,7 +265,7 @@ exports.getCommentedPosts = async (req, res) => {
             firstImage = parsedImages[0];
           } else {
             firstImage =
-              "http://localhost:4000/images/default/default_profile.png"; // 기본 썸네일 이미지
+              `${process.env.FRONTEND_URL}/images/default/default_profile.png`; // 기본 썸네일 이미지
           }
         } catch (error) {
           // JSON 파싱 실패 시 콤마로 구분된 문자열로 처리

@@ -8,6 +8,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import logo from "../../images/notionary-logo.png";
 
+const API_URL = process.env.REACT_APP_API_URL;
 // 컬러 팔레트 (통일성 유지)
 const colors = {
   primary: "#667eea",
@@ -325,7 +326,6 @@ const LoadingSpinner = styled.div`
   font-size: 16px;
   color: #6c757d;
 `;
-
 const PostEdit = () => {
   const { post_id } = useParams();
   const navigate = useNavigate();
@@ -360,7 +360,7 @@ const PostEdit = () => {
       const token =
         Cookies.get("authToken") || Cookies.get("login_access_token");
       const response = await axios.get(
-        `http://localhost:4000/post/${post_id}/edit`,
+        `${API_URL}/post/${post_id}/edit`,
         {
           headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
@@ -400,7 +400,7 @@ const PostEdit = () => {
       const token =
         Cookies.get("authToken") || Cookies.get("login_access_token");
       const response = await axios.put(
-        `http://localhost:4000/post/${post_id}`,
+        `${API_URL}/post/${post_id}`,
         formData,
         {
           headers: {
@@ -496,7 +496,7 @@ const PostEdit = () => {
     try {
       const token =
         Cookies.get("authToken") || Cookies.get("login_access_token");
-      await axios.delete(`http://localhost:4000/post/${post_id}`, {
+      await axios.delete(`${API_URL}/post/${post_id}`, {
         headers: { Authorization: `Bearer ${token}` },
         withCredentials: true,
       });

@@ -7,11 +7,6 @@ const {
 const { upload } = require("../middlewares/multer");
 
 const router = require("express").Router();
-// const {musicController} =require('../controllers');
-// console.log("서버에 전달될 목록",post_id, uid, category_id, title, content )
-// console.log("req.body:", req.body);
-// console.log("제목", req.body.title)
-// console.log("내용", req.body.content)
 
 router.post("/", upload.array("media", 5), async (req, res) => {
   const {
@@ -66,7 +61,6 @@ router.post("/", upload.array("media", 5), async (req, res) => {
 
 router.post("/getWorkspace", async (req, res) => {
   const { uid } = req.body;
-  console.log("하 진짜", uid);
   const data = await getUserWorkspaces(uid);
   res.json(data);
 });
@@ -74,8 +68,6 @@ router.post("/getWorkspace", async (req, res) => {
 router.put("/edit/:post_id", upload.array("media", 5), async (req, res) => {
   const { post_id } = req.params;
   const { uid, category_id, title, content } = req.body;
-  console.log("▶▶▶ 백엔드 디버그: req.body.uid 값:", req.body.uid);
-
   const imgPaths = req.files
     .filter((file) => file.mimetype.startsWith("image/"))
     .map((file) => {
@@ -107,7 +99,6 @@ router.put("/edit/:post_id", upload.array("media", 5), async (req, res) => {
 
 router.get("/:post_id", async (req, res) => {
   const { post_id } = req.params;
-  //   console.log("해당 게시글 ID",post_id)
   const data = await getPostById(post_id);
   res.json(data);
 });

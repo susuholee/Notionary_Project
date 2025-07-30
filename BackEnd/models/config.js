@@ -21,6 +21,7 @@ const sequelize = new Sequelize(
     host: process.env.DATABASE_HOST,
     dialect: "mysql",
     port: process.env.DATABASE_PORT,
+    logging: false, // 배포 시 로깅 비활성화
   }
 );
 
@@ -66,27 +67,30 @@ heart.associate(db);
 myproject.associate(db);
 teamproject.associate(db);
 
-// 워크스페이스 초기 데이터
-const datainit = async () => {
-  const data = ["개인 워크스페이스"];
-  await Promise.all(
-    data.map((el) =>
-      Workspace.findOrCreate({
-        where: { workspace_name: el },
-      })
-    )
-  );
-  console.log("✅ 워크스페이스 초기화 완료");
+// 워크스페이스 초기 데이터 (수정됨)
+const initWorkspaceData = async () => {
+  try {
+    const workspaceNames = ["개인 워크스페이스"];
+    
+    for (const name of workspaceNames) {
+      const [workspace, created] = await Workspace.findOrCreate({
+        where: { workspace_name: name },
+        defaults: { workspace_name: name }
+      });
+      
+      if (created) {
+        console.log(`워크스페이스 '${name}' 생성 완료`);
+      } else {
+        console.log(`워크스페이스 '${name}' 이미 존재`);
+      }
+    }
+  } catch (error) {
+    console.error("워크스페이스 초기화 실패:", error.message);
+    throw error;
+  }
 };
 
-// 카테고리 초기 데이터
-const dbConfig = {
-  host: process.env.DATABASE_HOST,
-  user: process.env.DATABASE_USER,
-  password: process.env.DATABASE_PASSWORD,
-  database: process.env.DATABASE_NAME,
-};
-
+// 카테고리 초기 데이터 (개선됨)
 const categoryData = [
   [1, "IT", 1, null], [2, "디자인", 1, null], [3, "교육", 1, null],
   [4, "금융", 1, null], [5, "취미", 1, null], [6, "기타", 1, null],
@@ -105,33 +109,50 @@ const categoryData = [
   [38, "음악", 2, 5], [39, "게임", 2, 5], [40, "자연/힐링", 2, 5],
 ];
 
-async function insertCategoryData() {
-  let connection;
-
+async function initCategoryData() {
   try {
-    connection = await mysql.createConnection(dbConfig);
-    console.log("데이터베이스에 연결되었습니다.");
+    const existingCount = await Category.count();
+    
+    if (existingCount > 0) {
+      console.log(`카테고리 데이터 이미 존재 (${existingCount}개)`);
+      return;
+    }
 
-    const insertQuery = `
-      INSERT INTO category (category_id, category_name, depth, category_id_fk) 
-      VALUES ?
-    `;
-    const [result] = await connection.query(insertQuery, [categoryData]);
+    const categoriesToInsert = categoryData.map(([id, name, depth, parentId]) => ({
+      category_id: id,
+      category_name: name,
+      depth: depth,
+      category_id_fk: parentId
+    }));
 
-    console.log(
-      `성공적으로 ${result.affectedRows}개의 카테고리 데이터가 삽입되었습니다.`
-    );
+    await Category.bulkCreate(categoriesToInsert, {
+      ignoreDuplicates: true
+    });
+
+    console.log(`${categoryData.length}개의 카테고리 데이터 삽입 완료`);
+    
   } catch (error) {
-    if (error.code === "ER_DUP_ENTRY") {
-      console.log(" 중복된 카테고리 데이터가 있습니다.");
-    } else {
-      console.error(" 카테고리 삽입 오류:", error.message);
-    }
-  } finally {
-    if (connection) {
-      await connection.end();
-      console.log("데이터베이스 연결이 종료되었습니다.");
-    }
+    console.error("카테고리 초기화 실패:", error.message);
+    throw error;
+  }
+}
+
+// 전체 초기화 함수
+async function initializeDatabase() {
+  try {
+    console.log("데이터베이스 초기화 시작...");
+    
+    // 1. 워크스페이스 초기화
+    await initWorkspaceData();
+    
+    // 2. 카테고리 초기화
+    await initCategoryData();
+    
+    console.log("데이터베이스 초기화 완료!");
+    
+  } catch (error) {
+    console.error("데이터베이스 초기화 실패:", error);
+    process.exit(1);
   }
 }
 
@@ -139,10 +160,12 @@ async function insertCategoryData() {
 sequelize
   .sync({ force: false })
   .then(async () => {
-    console.log("시퀄라이즈 연결 성공");
-    await datainit();
-    await insertCategoryData();
+    console.log("Sequelize 연결 성공");
+    await initializeDatabase();
   })
-  .catch(console.log);
+  .catch((error) => {
+    console.error("Sequelize 연결 실패:", error);
+    process.exit(1);
+  });
 
 module.exports = db;

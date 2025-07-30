@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { header } from "../images";
 
-const WORKSPACE_URL = "http://localhost:4000";
+const API_URL = process.env.REACT_APP_API_URL;
 
 const saveData = async (api, _data) => {
   // console.log("check", _data, api);
@@ -17,7 +17,7 @@ const saveData = async (api, _data) => {
     }
 
     const { data } = await axios.post(
-      `${WORKSPACE_URL}/${api}`,
+      `${API_URL}/${api}`,
       {
         data: _data,
       },
@@ -45,7 +45,7 @@ const getworkspaceDataOne = async () => {
     }
     // console.log("axiosget");
     const { data } = await axios.get(
-      `${WORKSPACE_URL}/workspace/workspacedataOne`,
+      `${API_URL}/workspace/workspacedataOne`,
       {
         headers: { Authorization: `Bearer ${accessToken}` },
         withCredentials: true,
@@ -69,7 +69,7 @@ const getworkspaceDataTwo = async () => {
     }
     // console.log("axiosget");
     const { data } = await axios.get(
-      `${WORKSPACE_URL}/workspace/workspacedataTwo`,
+      `${API_URL}/workspace/workspacedataTwo`,
       {
         headers: { Authorization: `Bearer ${accessToken}` },
         withCredentials: true,
@@ -93,7 +93,7 @@ const getTextdata = async () => {
       return;
     }
 
-    const { data } = await axios.get(`${WORKSPACE_URL}/workspace/getPage`, {
+    const { data } = await axios.get(`${API_URL}/workspace/getPage`, {
       headers: { Authorization: `Bearer ${accessToken}` },
       withCredentials: true,
     });
@@ -116,7 +116,7 @@ const getWspacecontent = async (wname) => {
     }
 
     const { data } = await axios.get(
-      `${WORKSPACE_URL}/workspaceContent`,
+      `${API_URL}/workspaceContent`,
       {
         wname,
       },
@@ -157,7 +157,7 @@ const PostBlockcontent = async (
     form.append("imgfile", imgfile);
 
     const { data: workspaceData } = await axios.post(
-      `${WORKSPACE_URL}/workspace/selectspace/${workspacename}/${foldername}/${filename}/image/${blockId}`,
+      `${API_URL}/workspace/selectspace/${workspacename}/${foldername}/${filename}/image/${blockId}`,
       form,
       {
         headers: {
@@ -183,7 +183,7 @@ const PostBlockcontent = async (
     //         }
     //     )
     const { data: workspaceData } = await axios.post(
-      `${WORKSPACE_URL}/workspace/selectspace/${workspacename}/${foldername}/${filename}`,
+      `${API_URL}/workspace/selectspace/${workspacename}/${foldername}/${filename}`,
       { data },
       {
         headers: {
@@ -205,7 +205,7 @@ const getBlockcontent = async (workspacename, foldername, filename) => {
     return;
   }
   const { data: workspaceData } = await axios.get(
-    `${WORKSPACE_URL}/workspace/selectspace/${workspacename}/${foldername}/${filename}`,
+    `${API_URL}/workspace/selectspace/${workspacename}/${foldername}/${filename}`,
     {
       headers: { Authorization: `Bearer ${accessToken}` },
       withCredentials: true,
@@ -232,7 +232,7 @@ const getBlockIdcontent = async (result_id) => {
       return;
     }
     const { data: workspacePageData } = await axios.post(
-      `${WORKSPACE_URL}/workspace/getBlockIdcontent`, {result_id },
+      `${API_URL}/workspace/getBlockIdcontent`, {result_id },
       {
         headers: { Authorization: `Bearer ${accessToken}` },
         withCredentials: true,
@@ -257,7 +257,7 @@ const DelWorkspace = async (workspacename, foldername) => {
     // console.log("토큰이 없습니다");
     return;
   }
-  const { data } = await axios.post(`${WORKSPACE_URL}/workspace/delworkspace`,
+  const { data } = await axios.post(`${API_URL}/workspace/delworkspace`,
     { workspacename, foldername },
     {
       headers: { Authorization: `Bearer ${accessToken}` },
@@ -278,7 +278,7 @@ const DelWorkspacepage = async (workspacename, foldername, filename) => {
     // console.log("토큰이 없습니다");
     return;
   }
-  const { data } = await axios.post(`${WORKSPACE_URL}/workspace/delworkspacepage`,
+  const { data } = await axios.post(`${API_URL}/workspace/delworkspacepage`,
     { workspacename, foldername, filename },
     {
       headers: { Authorization: `Bearer ${accessToken}` },
@@ -297,7 +297,7 @@ const getPagecontent = async (result_id) => {
     // console.log("토큰이 없습니다");
     return;
   }
-  const data = await axios.get(`${WORKSPACE_URL}/workspace/getpagecontent`, { result_id },
+  const data = await axios.get(`${API_URL}/workspace/getpagecontent`, { result_id },
     {
       headers: { Authorization: `Bearer ${accessToken}` },
       withCredentials: true,

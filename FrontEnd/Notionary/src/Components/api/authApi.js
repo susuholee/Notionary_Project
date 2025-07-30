@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:4000/api";
+const API_URL = process.env.REACT_APP_AUTH_URL;
 
 // 기존 API 함수들
 export const checkIdDuplicate = async (uid) => {

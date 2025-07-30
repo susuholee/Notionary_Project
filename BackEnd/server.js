@@ -25,7 +25,7 @@ const {
 } = require("./routers");
 const { getCookie } = require("./middlewares/Cookie.middleware");
 
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true }));
 app.use(express.json({limit : "100MB"}));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ limit: "100MB", extended: false }));
@@ -103,7 +103,7 @@ app.get("/auth/kakao/callback", async (req, res) => {
     httpOnly: false,
     maxAge: 120 * 60 * 60 * 1000,
   });
-  res.redirect("http://localhost:3000/main");
+  res.redirect(`${process.env.FRONTEND_URL}/main`);
 });
 
 app.get("/logout", (req, res) => {

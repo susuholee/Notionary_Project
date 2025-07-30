@@ -251,7 +251,7 @@ const LoginForm = () => {
         secondary
         fullWidth
         onClick={() =>
-          (window.location.href = "http://localhost:4000/kakao/login")
+          (window.location.href = "https://notionarys.store/kakao/login")
         }
         style={{
           backgroundColor: "#FEE500",

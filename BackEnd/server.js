@@ -40,7 +40,7 @@ app.use("/post", postRouter);
 app.use("/mypage", mypageRouter);
 app.use("/myproject", myprojectRouter);
 app.use("/teamproject", teamprojectRouter);
-app.use("/api/auth", authRouter);
+app.use("/auth", authRouter);
 app.use("/workspace", workspaceRouter);
 app.use("/detail", detailRouter);
 

@@ -306,19 +306,6 @@ const UpdatePost = async ({
   }
 };
 
-// // (async () => {
-// //   const response = await UpdatePost({
-// //     post_id: 9,
-// //     uid: 4270722392,
-// //     title: "비노dsdds",
-// //     content: "모르sdsdsd요.",
-// //     imgPaths: ["sdsdsdsdsd.jpg", "dsdsdsdsdsdsd.jpg"],
-// //     videoPaths: ["dsdsdsdsd.mp4"],
-// //     fk_workspace_id: 22,
-// //   });
-
-//   console.log("수정된 게시글:", response);
-// })();
 
 const getPostById = async (post_id) => {
   try {
@@ -330,12 +317,7 @@ const getPostById = async (post_id) => {
   }
 };
 
-//  디버깅: 즉시 실행
-// (async () => {
-//   const testPostId = 2; // 확인할 post_id 값
-//   const result = await getPostById(testPostId);
-//   console.log("📌 게시글 조회 결과:", result);
-// })();
+
 
 const getUserWorkspaces = async (uid) => {
   try {

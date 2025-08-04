@@ -6,7 +6,7 @@ const API_URL = process.env.REACT_APP_API_URL;
 // 기존 API 함수들
 export const checkIdDuplicate = async (uid) => {
   try {
-    const response = await axios.post(`${API_URL}/auth/check-id`, { uid });
+    const response = await axios.post(`${API_URL}/api/auth/check-id`, { uid });
     return response.data;
   } catch (error) {
     console.error("Error checking ID:", error);
@@ -16,7 +16,7 @@ export const checkIdDuplicate = async (uid) => {
 
 export const registerUser = async (userData) => {
   try {
-    const response = await axios.post(`${API_URL}/auth/register`, userData);
+    const response = await axios.post(`${API_URL}/api/auth/register`, userData);
     return response.data;
   } catch (error) {
     console.error("Error registering user:", error);
@@ -27,7 +27,7 @@ export const registerUser = async (userData) => {
 // 로그인 관련 API 함수 추가
 export const loginUser = async (credentials) => {
   try {
-    const response = await axios.post(`${API_URL}/auth/login`, credentials);
+    const response = await axios.post(`${API_URL}/api/auth/login`, credentials);
     console.log("너 누구야",response)
 
     // 로그인 성공 시 토큰을 쿠키에 저장

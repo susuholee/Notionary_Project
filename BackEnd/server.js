@@ -34,15 +34,15 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/images", express.static(path.join(__dirname, "public/images")));
 // app.use("/music", express.static(path.join(__dirname, "public/musics")));
 
-app.use("/user", userRouter);
-app.use("/main", mainRouter);
-app.use("/post", postRouter);
-app.use("/mypage", mypageRouter);
-app.use("/myproject", myprojectRouter);
-app.use("/teamproject", teamprojectRouter);
-app.use("/auth", authRouter);
-app.use("/workspace", workspaceRouter);
-app.use("/detail", detailRouter);
+app.use("/api/user", userRouter);
+app.use("/api/main", mainRouter);
+app.use("/api/post", postRouter);
+app.use("/api/mypage", mypageRouter);
+app.use("/api/myproject", myprojectRouter);
+app.use("/api/teamproject", teamprojectRouter);
+app.use("/api/auth", authRouter);
+app.use("/api/workspace", workspaceRouter);
+app.use("/api/detail", detailRouter);
 
 
 app.get("/", (req, res) => {
@@ -51,12 +51,12 @@ app.get("/", (req, res) => {
   res.send("Notionary API is running");
 });
 
-app.get("/kakao/login", (req, res) => {
+app.get("/api/kakao/login", (req, res) => {
   const kakaoAuth = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.KAKAO_CLIENT_ID}&redirect_uri=${process.env.REDIRECT_URL}`;
   res.redirect(kakaoAuth);
 });
 
-app.get("/auth/kakao/callback", async (req, res) => {
+app.get("/api/auth/kakao/callback", async (req, res) => {
   const { code } = req.query;
   const tokenRequest = `https://kauth.kakao.com/oauth/token`;
   const data = new URLSearchParams({
@@ -106,12 +106,12 @@ app.get("/auth/kakao/callback", async (req, res) => {
   res.redirect(`${process.env.FRONTEND_URL}/main`);
 });
 
-app.get("/logout", (req, res) => {
+app.get("/api/logout", (req, res) => {
   // 로그아웃
   const redirect_kakao_logout = `https://kauth.kakao.com/oauth/logout?client_id=${process.env.KAKAO_CLIENT_ID}&logout_redirect_uri=${process.env.LOGOUT_REDIRECT_URL}`;
   res.redirect(redirect_kakao_logout);
 });
-app.get("/auth/kakao/logout/callback", (req, res) => {
+app.get("/api/auth/kakao/logout/callback", (req, res) => {
   // 로그아웃 콜백
   try {
     res.clearCookie("login_access_token");
